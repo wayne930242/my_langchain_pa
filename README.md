@@ -7,7 +7,7 @@ cd dj-api
 poetry install
 
 # Make database migrations
-peotry run ./manage.py makemigrations
+poetry run ./manage.py makemigrations
 poetry run ./manage.py migrate 
 
 # Create admin superuser

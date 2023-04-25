@@ -20,7 +20,7 @@ poetry run ./manage.py loaddata fixture
 
 The terminal should output: `Installed 30 object(s) from 1 fixture(s)`.
 
-If an error message appears then run `poetry ./manage.py migrate --run-syncdb` and `poetry run ./manage.py migrate` first 
+If an error message appears then run `poetry run ./manage.py migrate --run-syncdb` and `poetry run ./manage.py migrate` first 
 and then `poetry run ./manage.py loaddata fixture` should work.
 
 ## 2. Confirm your backend is functioning

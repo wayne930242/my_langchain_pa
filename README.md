@@ -53,14 +53,8 @@ yarn install
 # Create a .env.local file with backend api endpoint inside
 cp .env.example .env.local
 
-# In your text editor put the following line in your .env.local file
-DJANGO_API=http://localhost:8000/api
-
 # Start your frontend app
 yarn dev
-
-# or
-npm run dev
 ```
 
 Opening http://localhost:3000/ in your browser should now show your frontend Next.js app.

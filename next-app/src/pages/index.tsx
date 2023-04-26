@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
+import { getChat } from '@/lib/api/chat'
 
 export default function Home() {
   const [userInput, setUserInput] = useState<string>('')
@@ -65,33 +66,25 @@ export default function Home() {
     ])
 
     // Send user question and history to API
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ question: userInput, history: history }),
-    })
-
-    if (!response.ok) {
-      handleError()
-      return
-    }
-
-    // Reset user input
-    setUserInput('')
-    const data = await response.json()
-
-    if (data.result.error === 'Unauthorized') {
-      handleError()
-      return
-    }
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { message: data.result.success, type: 'apiMessage' },
-    ])
-    setLoading(false)
+    getChat({ question: userInput, history })
+      .then((res) => {
+        if (res.error === 'Unauthorized') {
+          handleError()
+          return
+        }
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { message: res.content, type: 'apiMessage' },
+        ])
+      })
+      .catch(() => {
+        handleError()
+      })
+      .finally(() => {
+        // Reset user input
+        setUserInput('')
+        setLoading(false)
+      })
   }
 
   // Prevent blank submissions and allow for multiline input

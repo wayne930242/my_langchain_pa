@@ -38,4 +38,7 @@ jspm_packages
 .next
 
 # Yarn
-.yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*

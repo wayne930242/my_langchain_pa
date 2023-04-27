@@ -1,3 +1,8 @@
+```shell
+# Create a .env.local file
+cp .env.local.example .env.local
+```
+
 ## 1. Setup the backend **Dj-api**
 
 ```shell
@@ -12,34 +17,10 @@ poetry run ./manage.py migrate
 
 # Create admin superuser
 poetry run ./manage.py createsuperuser
-..<input a username, email, and password>
-
-# Populate your database with initial data from the dj-api/api/fixtures directory
-poetry run ./manage.py loaddata fixture
+# > ..<input a username, email, and password>
 ```
 
-The terminal should output: `Installed 30 object(s) from 1 fixture(s)`.
-
-If an error message appears then run `poetry run ./manage.py migrate --run-syncdb` and `poetry run ./manage.py migrate` first 
-and then `poetry run ./manage.py loaddata fixture` should work.
-
-## 2. Confirm your backend is functioning
-
-```shell
-poetry run ./manage.py runserver
-```
-
-Now navigate to http://127.0.0.1:8000/api
-and confirm the initial data was loaded properly.
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/64326462/126901766-e187377d-5b0d-4b75-835f-5dc1d0374094.png"
-    alt="screenshot-of-api" align="center" width="50%">
-</p>
-
-</br>
-
-##  Setup the frontend **next-app**
+##  2. Setup the frontend **next-app**
 
 Open up another terminal (tab or window) and keep your backend running.
 
@@ -49,9 +30,6 @@ cd next-app
 
 # Install all dependencies
 yarn install 
-
-# Create a .env.local file with backend api endpoint inside
-cp .env.example .env.local
 
 # Start your frontend app
 yarn dev

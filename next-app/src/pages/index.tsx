@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress'
 import Avatar from '@mui/material/Avatar'
+import { getChat } from '@/lib/api/chat'
 
 export default function Home() {
   const [userInput, setUserInput] = useState<string>('')
@@ -11,7 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
   const [messages, setMessages] = useState([
     {
-      message: 'Hi there! How can I help?',
+      message: '嗨，有什麼我可以協助你的嗎？',
       type: 'apiMessage',
     },
   ])
@@ -65,42 +66,36 @@ export default function Home() {
     ])
 
     // Send user question and history to API
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ question: userInput, history: history }),
-    })
-
-    if (!response.ok) {
-      handleError()
-      return
-    }
-
-    // Reset user input
-    setUserInput('')
-    const data = await response.json()
-
-    if (data.result.error === 'Unauthorized') {
-      handleError()
-      return
-    }
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { message: data.result.success, type: 'apiMessage' },
-    ])
-    setLoading(false)
+    getChat({ question: userInput, history })
+      .then((res) => {
+        if (res.error === 'Unauthorized') {
+          handleError()
+          return
+        }
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { message: res.content, type: 'apiMessage' },
+        ])
+      })
+      .catch(() => {
+        handleError()
+      })
+      .finally(() => {
+        // Reset user input
+        setUserInput('')
+        setLoading(false)
+      })
   }
 
   // Prevent blank submissions and allow for multiline input
   const handleEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && userInput) {
+    // Use ctrl + enter to submit
+    if (e.ctrlKey && e.key === 'Enter' && userInput) {
       if (!e.shiftKey && userInput) {
         handleSubmit(e)
       }
     } else if (e.key === 'Enter') {
+      //disallow enter without ctrl
       e.preventDefault()
     }
   }

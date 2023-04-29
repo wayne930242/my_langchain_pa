@@ -1,9 +1,13 @@
 .main {
+  width: 100vw;
   display: flex;
+  max-width: 1280px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
+  background-color: #14264d;
+  min-height: 100vh;
 }
 
 .header {
@@ -11,7 +15,7 @@
 }
 
 .header p {
-  text-align: center;
+  text-align: left;
 }
 
 .topnav {
@@ -23,7 +27,8 @@
   align-items: center;
 }
 
-.navlogo, .navlinks a {
+.navlogo,
+.navlinks a {
   font-weight: 500;
 }
 
@@ -57,19 +62,22 @@
 
 .cloudform {
   position: relative;
+  width: 100%;
 }
 
 .textarea {
   position: relative;
   resize: none;
   font-size: 1.1rem;
-  padding: 1rem 2rem 1rem 2rem;
-  width: 75vw;
-  border-radius: 0.5rem;
-  border: 1px solid #30373d;
-  background: #070809;
-  color: #ECECF1;
+  padding: 1rem 3rem 1rem 2rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  border: none 0;
+  background: #000d1a;
+  color: #ececf1;
   outline: none;
+  height: calc(32px + 1.1rem + 2px + 1px);
+  box-shadow: 0px 2px 4px #1a1a1a;
 }
 
 .textarea:disabled {
@@ -119,7 +127,7 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 .messagelistloading {
@@ -132,12 +140,12 @@
 .usermessage {
   background: #070809;
   padding: 1rem 1.5rem;
-  color: #ECECF1;
+  color: #ececf1;
 }
 
-.usermessagewaiting{
+.usermessagewaiting {
   padding: 1.5rem;
-  color: #ECECF1;
+  color: #ececf1;
   background: linear-gradient(to left, #070809, #1a1c20, #070809);
   background-size: 200% 200%;
   background-position: -100% 0;
@@ -157,24 +165,29 @@
 
 .message {
   display: flex;
-
 }
 
 .apimessage {
   background: #141619;
-  padding: 1rem 1.5rem;
-  color: #ECECF1;
+  padding: 0.5rem 1.5rem;
+  color: #ececf1;
   animation: fadein 0.5s;
 }
 
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.apimessage, .usermessage, .usermessagewaiting {
+.apimessage,
+.usermessage,
+.usermessagewaiting {
   display: flex;
-  align-items: center;
+  align-items: top;
 }
 
 .markdownanswer {
@@ -197,19 +210,22 @@
   white-space: pre-wrap !important;
 }
 
-.markdownanswer ol, .markdownanswer ul {
+.markdownanswer ol,
+.markdownanswer ul {
   margin: 1rem;
 }
 
-.boticon, .usericon {
+.boticon,
+.usericon {
   margin-right: 1rem;
   border-radius: 0.1rem;
 }
 
-.markdownanswer h1, .markdownanswer h2, .markdownanswer h3 {
+.markdownanswer h1,
+.markdownanswer h2,
+.markdownanswer h3 {
   font-size: inherit;
 }
-
 
 .center {
   display: flex;
@@ -218,17 +234,19 @@
   position: relative;
   padding: 2rem 0;
   flex-direction: column;
+  width: 100%;
 }
 
 .cloud {
-  width: 75vw;
-  height: 65vh;
-  background: #070809;
-  border-radius: 0.5rem;
-  border: 1px solid #30373d;
+  width: 100%;
+  max-width: 1280px;
+  min-height: 75vh;
+  background: #000d1a;
+  border-radius: 0.25rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  box-shadow: 0px 2px 4px #1a1a1a;
 }
 
 .pointsnormal {
@@ -259,37 +277,24 @@
 
 /* Mobile optimization */
 @media (max-width: 600px) {
-
-  .main {
-    padding: 1rem;
-    max-height: 90vh;
-  }
-
-  .cloud {
-    width: 22rem;
-    height: 28rem;
-  }
-  .textarea {
-    width: 22rem;
-  }
   .topnav {
     border: 1px solid black;
     align-items: center;
     padding: 0.85rem 0.75rem 0.85rem 0.75rem;
   }
 
-.navlogo {
-  font-size: 1.25rem;
-  width: 20rem;
-}
+  .navlogo {
+    font-size: 1.25rem;
+    width: 20rem;
+  }
 
-.markdownanswer code {
-  white-space : pre-wrap !important;
-}
+  .markdownanswer code {
+    white-space: pre-wrap !important;
+  }
 
-.footer {
-  font-size: 0.7rem;
-  width: 100%;
-  text-align: center;
-}
+  .footer {
+    font-size: 0.7rem;
+    width: 100%;
+    text-align: center;
+  }
 }

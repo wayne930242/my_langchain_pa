@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import Document, {
   Html,
   Head,
@@ -6,16 +6,16 @@ import Document, {
   NextScript,
   DocumentProps,
   DocumentContext,
-} from 'next/document';
-import createEmotionServer from '@emotion/server/create-instance';
-import { AppType } from 'next/app';
-import { ServerStyleSheets as JSSServerStyleSheets } from '@mui/styles';
-import theme from '../lib/theme/theme';
-import createEmotionCache from '../lib/theme/createEmotionCache';
-import { MyAppProps } from './_app';
+} from 'next/document'
+import createEmotionServer from '@emotion/server/create-instance'
+import { AppType } from 'next/app'
+import { ServerStyleSheets as JSSServerStyleSheets } from '@mui/styles'
+import theme from '../lib/theme/theme'
+import createEmotionCache from '../lib/theme/createEmotionCache'
+import { MyAppProps } from './_app'
 
 interface MyDocumentProps extends DocumentProps {
-  emotionStyleTags: JSX.Element[];
+  emotionStyleTags: JSX.Element[]
 }
 
 export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
@@ -37,7 +37,7 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
 
 // You can find a benchmark of the available CSS minifiers under
@@ -47,17 +47,17 @@ export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
 // 4% slower but 12% smaller output than doing it in a single step.
 //
 // It's using .browserslistrc
-let prefixer: any;
-let cleanCSS: any;
+let prefixer: any
+let cleanCSS: any
 if (process.env.NODE_ENV === 'production') {
   /* eslint-disable global-require */
-  const postcss = require('postcss');
-  const autoprefixer = require('autoprefixer');
-  const CleanCSS = require('clean-css');
+  const postcss = require('postcss')
+  const autoprefixer = require('autoprefixer')
+  const CleanCSS = require('clean-css')
   /* eslint-enable global-require */
 
-  prefixer = postcss([autoprefixer]);
-  cleanCSS = new CleanCSS();
+  prefixer = postcss([autoprefixer])
+  cleanCSS = new CleanCSS()
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
@@ -85,28 +85,30 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // 3. app.render
   // 4. page.render
 
-  const originalRenderPage = ctx.renderPage;
+  const originalRenderPage = ctx.renderPage
 
   // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
   // However, be aware that it can have global side effects.
-  const cache = createEmotionCache();
-  const { extractCriticalToChunks } = createEmotionServer(cache);
-  const jssSheets = new JSSServerStyleSheets();
+  const cache = createEmotionCache()
+  const { extractCriticalToChunks } = createEmotionServer(cache)
+  const jssSheets = new JSSServerStyleSheets()
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>) =>
+      enhanceApp: (
+        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>
+      ) =>
         function EnhanceApp(props) {
-          return jssSheets.collect(<App emotionCache={cache} {...props} />);
+          return jssSheets.collect(<App emotionCache={cache} {...props} />)
         },
-    });
+    })
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx)
 
   // Generate style tags for the styles coming from Emotion
   // This is important. It prevents Emotion from rendering invalid HTML.
   // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
-  const emotionStyles = extractCriticalToChunks(initialProps.html);
+  const emotionStyles = extractCriticalToChunks(initialProps.html)
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
@@ -114,15 +116,15 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
-  ));
+  ))
 
   // Generate the css string for the styles coming from jss
-  let css = jssSheets.toString();
+  let css = jssSheets.toString()
   // It might be undefined, e.g. after an error.
   if (css && process.env.NODE_ENV === 'production') {
-    const result1 = await prefixer.process(css, { from: undefined });
-    css = result1.css;
-    css = cleanCSS.minify(css).styles;
+    const result1 = await prefixer.process(css, { from: undefined })
+    css = result1.css
+    css = cleanCSS.minify(css).styles
   }
 
   return {
@@ -137,5 +139,5 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
       />,
       ...React.Children.toArray(initialProps.styles),
     ],
-  };
-};
+  }
+}

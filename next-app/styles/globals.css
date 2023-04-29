@@ -7,6 +7,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+html {
+  background: black;
+}
+
 html,
 body {
   max-width: 100vw;
@@ -14,7 +18,6 @@ body {
 }
 
 body {
-  color: snow;
   background: #070809;
 }
 

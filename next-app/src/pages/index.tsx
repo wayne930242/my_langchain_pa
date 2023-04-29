@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import ReactMarkdown from 'react-markdown'
@@ -27,12 +27,32 @@ export default function Home() {
     messageList.scrollTop = messageList.scrollHeight
   }, [messages])
 
+  const resizeElement = useCallback(() => {
+    if (textAreaRef.current === null) return
+    textAreaRef.current.style.height = '5px'
+    textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
+  }, [])
+
   // Focus on text field on load
   useEffect(() => {
     if (textAreaRef.current) {
-      textAreaRef.current.focus()
+      textAreaRef.current.addEventListener('input', resizeElement)
     }
-  }, [])
+    return () => {
+      if (textAreaRef.current) {
+        const textAreaElement = textAreaRef.current
+        textAreaElement.removeEventListener('input', resizeElement)
+      }
+    }
+  }, [textAreaRef])
+
+  // Handle resize and focus on loading finish and first rendering
+  useEffect(() => {
+    if (!loading && textAreaRef.current) {
+      textAreaRef.current.focus()
+      resizeElement()
+    }
+  }, [loading])
 
   // Handle errors
   const handleError = () => {
@@ -94,9 +114,6 @@ export default function Home() {
       if (!e.shiftKey && userInput) {
         handleSubmit(e)
       }
-    } else if (e.key === 'Enter') {
-      //disallow enter without ctrl
-      e.preventDefault()
     }
   }
 
@@ -142,8 +159,12 @@ export default function Home() {
                   {message.type === 'apiMessage' ? (
                     <Avatar
                       alt="AI"
-                      sx={{ width: 30, height: 30 }}
-                      src="/aiicon-square.png"
+                      sx={{
+                        width: 30,
+                        height: 30,
+                        backgroundColor: 'snow',
+                      }}
+                      src="/aiicon-square2.png"
                     />
                   ) : (
                     <Avatar
@@ -171,8 +192,6 @@ export default function Home() {
                 onKeyDown={handleEnter}
                 ref={textAreaRef}
                 autoFocus={false}
-                rows={1}
-                maxLength={512}
                 id="userInput"
                 name="userInput"
                 placeholder={

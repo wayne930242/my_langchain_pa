@@ -36,3 +36,13 @@ yarn dev
 ```
 
 Opening http://localhost:3000/ in your browser should now show your frontend Next.js app.
+
+## Shell script for starting frontend and backend at the same time using tmux
+
+Requirement: Unix like shell, zsh or bash; tmux installed.
+
+In project folder "my_langchain_pa", you can use rundev.sh to start the app.
+
+```shell
+./rundev.sh
+```

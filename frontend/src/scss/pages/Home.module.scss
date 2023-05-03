@@ -1,0 +1,9 @@
+@import '../theme/theme';
+@import '../mixins/mixins.scss';
+
+.title {
+  color: $text-dark;
+  margin: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid $text-light;
+}

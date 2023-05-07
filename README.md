@@ -1,4 +1,4 @@
-# 0. Requirements
+# Requirements
 
 - [Python 3.8+](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation) (optional)
@@ -74,7 +74,7 @@ yarn dev
 
 Opening http://localhost:3000/ in your browser should now show your frontend Next.js app.
 
-## 4. Shell script for starting frontend and backend at the same time using tmux
+## Shell script for starting frontend and backend at the same time using tmux
 
 Requirement: Unix like shell, zsh or bash; tmux installed.
 

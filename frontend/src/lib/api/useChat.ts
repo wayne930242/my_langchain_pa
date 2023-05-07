@@ -7,18 +7,20 @@ const WEBSOCKET_PATHS = {
 }
 const API_URL = process.env.API_URL?.replace(/\/$/, '')
 
-const getWebSocketURL= (API_URL: string | undefined, path: string) => {
+const getWebSocketURL = (API_URL: string | undefined, path: string) => {
   if (!API_URL) {
     API_URL = 'http://localhost:8000'
   }
-  const url = new URL(API_URL);
-  const protocol = url.protocol === "https:" ? "wss:" : "ws:";
-  
-  return `${protocol}//${url.host}${path}`;
+  const url = new URL(API_URL)
+  const protocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
+
+  return `${protocol}//${url.host}${path}`
 }
 
 export const useChat = (
   path: keyof typeof WEBSOCKET_PATHS = 'default',
+  handleStart?: () => void,
+  handleDone?: () => void,
   handleError?: (error?: Event) => any
 ) => {
   const [socket, setSocket] = useState<WebSocket | null>(null)
@@ -35,6 +37,9 @@ export const useChat = (
       const data: IStreamResponse = JSON.parse(event.data)
       if (data.sender === 'bot' && data.message_type === 'stream') {
         setAiMessage(data.message)
+      }
+      if (data.sender === 'bot' && data.message_type === 'end') {
+        if (handleDone) handleDone()
       }
       // additional response handler
     }
@@ -59,11 +64,12 @@ export const useChat = (
   }, [])
 
   const makeRequest = async (payload: IChatPayload) => {
+    if (handleStart) handleStart()
     if (socket) {
       if (socket.readyState !== WebSocket.OPEN) {
         const ws = new WebSocket(web_socket_url)
         await new Promise<void>((resolve) => {
-          ws.addEventListener("open", () => {
+          ws.addEventListener('open', () => {
             resolve()
           })
         })

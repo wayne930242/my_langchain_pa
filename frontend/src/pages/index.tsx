@@ -66,9 +66,18 @@ export default function Home() {
     setLoading(false)
     setUserInput('')
   }
+  const handleDone = () => {
+    setUserInput('')
+    setLoading(false)
+  }
+  const handleStart = () => {
+    setLoading(true)
+  }
 
   const { makeRequest, aiMessage } = useChat(
     'default',
+    handleStart,
+    handleDone,
     handleError
   )
 
@@ -218,9 +227,7 @@ export default function Home() {
                 autoFocus={false}
                 id="userInput"
                 name="userInput"
-                placeholder={
-                  loading ? '等待回應...' : '輸入你的問題...'
-                }
+                placeholder={loading ? '等待回應...' : '輸入你的問題...'}
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 className={styles.textarea}

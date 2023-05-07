@@ -55,6 +55,8 @@ pip install -r requirements.txt
 
 # Start your backend server
 poetry run uvicorn api.conversation_chain:app --reload
+# or
+python uvicorn api.conversation_chain:app
 ```
 
 ## 3. Setup the frontend

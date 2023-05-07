@@ -1,32 +1,69 @@
+# 0. Requirements
+
+- [Python 3.8+](https://www.python.org/downloads/)
+- [Poetry](https://python-poetry.org/docs/#installation) (optional)
+- [Node.js 16+](https://nodejs.org/en/download/)
+- [Yarn](https://yarnpkg.com/getting-started/install) (optional: npm can be used instead)
+- [make](https://www.gnu.org/software/make/) (optional: jump to [Slow start](#slow-start) if you don't have it)
+
+# Quick start
+
+If you have all the requirements installed, you can run the following commands to start the app.
+
+```shell
+# Setup all the things
+make setup
+
+# Run all the things
+make runall
+# Or if you installed tmux
+make tmux
+
+# Run the backend
+make backend
+
+# Run the frontend
+make frontend
+```
+
+# Slow start
+
+If you don't have `make` installed, you can follow the steps below to start the app.
+
+## 1. Environment variables
+
 ```shell
 # Create a .env.local file
 cp .env.local.example .env.local
 ```
 
-## 1. Setup the backend **Dj-api**
+And fill in the values for the environment variables.
+
+## 2. Setup the backend
+
+Launch the backend server first.
+
+Or
 
 ```shell
-cd dj-api
+cd backend
 
 # Download necessary packages
 poetry install
+# or
+pip install -r requirements.txt
 
-# Make database migrations
-poetry run ./manage.py makemigrations
-poetry run ./manage.py migrate 
-
-# Create admin superuser
-poetry run ./manage.py createsuperuser
-# > ..<input a username, email, and password>
+# Start your backend server
+poetry run uvicorn api.conversation_chain:app --reload
 ```
 
-##  2. Setup the frontend **next-app**
+## 3. Setup the frontend
 
 Open up another terminal (tab or window) and keep your backend running.
 
 ```shell
 # In the new terminal cd into the next-app directory
-cd next-app
+cd frontend
 
 # Install all dependencies
 yarn install 
@@ -37,7 +74,7 @@ yarn dev
 
 Opening http://localhost:3000/ in your browser should now show your frontend Next.js app.
 
-## Shell script for starting frontend and backend at the same time using tmux
+## 4. Shell script for starting frontend and backend at the same time using tmux
 
 Requirement: Unix like shell, zsh or bash; tmux installed.
 
@@ -46,3 +83,10 @@ In project folder "my_langchain_pa", you can use rundev.sh to start the app.
 ```shell
 ./rundev.sh
 ```
+
+# Refernce
+
+## Credit
+
+- [fastapi-async-langchain](https://github.com/ajndkr/fastapi-async-langchain) for backend
+- [langchain-chat-nextjs](https://github.com/zahidkhawaja/langchain-chat-nextjs) for quick start

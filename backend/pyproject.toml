@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Wei Hung <wayne930242@gmail.com>"]
+packages = [{include = "langchain_fastapi"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^0.27.4"
+python-dotenv = "^1.0.0"
+loguru = "^0.7.0"
+langchain = "^0.0.161"
+pydantic = "^1.10.7"
+fastapi = "^0.95.1"
+uvicorn = "^0.22.0"
+gradio = "^3.28.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

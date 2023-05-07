@@ -1,6 +1,6 @@
 # Requirements
 
-- [Python 3.8+](https://www.python.org/downloads/)
+- [Python 3.8+](https://www.python.org/downloads/). If you used poetry, that should be 3.11.
 - [Poetry](https://python-poetry.org/docs/#installation) (optional)
 - [Node.js 16+](https://nodejs.org/en/download/)
 - [Yarn](https://yarnpkg.com/getting-started/install) (optional: npm can be used instead)

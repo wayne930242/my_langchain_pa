@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-ENV_PATH = Path(__file__).resolve().parent.parent / ".env.local"
+ENV_PATH = Path(__file__).resolve().parent.parent.parent / ".env.local"
 load_dotenv(ENV_PATH)
 
 API_URL = os.getenv("API_URL")

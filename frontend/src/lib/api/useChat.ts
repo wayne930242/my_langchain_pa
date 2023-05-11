@@ -54,7 +54,7 @@ export const useChat = (
   }, [])
 
   useEffect(() => {
-    const ws = new WebSocket(web_socket_url)
+    const ws = new WebSocket(web_socket_url, 'echo-protocol')
     registerSocket(ws)
     return () => {
       if (socket) {
@@ -67,7 +67,7 @@ export const useChat = (
     if (handleStart) handleStart()
     if (socket) {
       if (socket.readyState !== WebSocket.OPEN) {
-        const ws = new WebSocket(web_socket_url)
+        const ws = new WebSocket(web_socket_url, 'echo-protocol')
         await new Promise<void>((resolve) => {
           ws.addEventListener('open', () => {
             resolve()

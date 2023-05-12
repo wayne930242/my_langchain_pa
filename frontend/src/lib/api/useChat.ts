@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { IChatPayload, IStreamResponse } from '../types/interface'
 
 const WEBSOCKET_PATHS = {
-  default: '/ws',
+  default: '/chat',
 }
 const API_URL = process.env.API_URL?.replace(/\/$/, '')
 
@@ -67,6 +67,7 @@ export const useChat = (
     if (handleStart) handleStart()
     if (socket) {
       if (socket.readyState !== WebSocket.OPEN) {
+        console.info('Reconnecting WebSocket connection.')
         const ws = new WebSocket(web_socket_url, 'echo-protocol')
         await new Promise<void>((resolve) => {
           ws.addEventListener('open', () => {
@@ -85,5 +86,6 @@ export const useChat = (
     makeRequest,
     aiMessage,
     setAiMessage,
+    socket,
   }
 }

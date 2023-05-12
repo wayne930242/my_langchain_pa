@@ -1,6 +1,6 @@
 # Requirements
 
-- [Python ^3.8.1](https://www.python.org/downloads/). If you used poetry, it should be `3.11`.
+- [Python ^3.10](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation) (optional)
 - [Node.js >=16](https://nodejs.org/en/download/)
 - [Yarn](https://yarnpkg.com/getting-started/install) (optional: npm can be used instead)
@@ -85,6 +85,10 @@ In project folder "my_langchain_pa", you can use rundev.sh to start the app.
 ```shell
 ./rundev.sh
 ```
+
+# backend playground
+
+When you successfully launch the backend server, you can visit http://localhost:8000 to use the playground.
 
 # Refernce
 

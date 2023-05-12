@@ -1760,6 +1760,22 @@ files = [
 ]
 
 [[package]]
+name = "promptlayer"
+version = "0.1.80"
+description = "PromptLayer is a package to keep track of your GPT models training"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "promptlayer-0.1.80.tar.gz", hash = "sha256:1012018ed3e4bca4f0d9c9164cb00b7ca0936cba6a40d4de53e87ef08fdff62f"},
+]
+
+[package.dependencies]
+langchain = "*"
+openai = "*"
+requests = "*"
+
+[[package]]
 name = "pydantic"
 version = "1.10.7"
 description = "Data validation and settings management using python type hints"
@@ -2499,4 +2515,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "042c7b12ed8eb7fd2fcd49d4b28c7b6371ea0340de95bc940e95195cfb7a0c35"
+content-hash = "36b36149f6f8c857ed90012d992db3764d8288095ce7743615b4db5bf151da8a"
